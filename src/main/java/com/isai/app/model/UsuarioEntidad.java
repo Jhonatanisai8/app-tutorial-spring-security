@@ -26,10 +26,11 @@ public class UsuarioEntidad {
 
     private String password;
 
+    @Column(unique = true)
     private String email;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_rol",
+    @JoinTable(name = "usuarios_roles",
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private Set<Rol> roles = new HashSet<>();
