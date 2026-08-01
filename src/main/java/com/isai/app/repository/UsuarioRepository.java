@@ -13,4 +13,6 @@ public interface UsuarioRepository
     Optional<UsuarioEntidad> findByUserName(String userName);
 
     boolean existsByEmail(String email);
+
+    Optional<UsuarioEntidad> findByEmail(String email);
 }
