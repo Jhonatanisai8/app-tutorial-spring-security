@@ -31,7 +31,7 @@ Es una API REST que implementa registro de usuarios, login y generación de toke
 ## 1. Clonar el proyecto
 
 ```bash
-git clone <url-del-repositorio>
+git clone [<url-del-repositorio>](https://github.com/Jhonatanisai8/app-tutorial-spring-security.git)
 cd app-tutorial-spring-security
 ```
 
