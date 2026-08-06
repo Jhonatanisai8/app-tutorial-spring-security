@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/token")
 public class VerficadorController {
+    @RequestMapping(path = "/token")
     public String token() {
         return "Hola si funciona, el token de acceso esta bien";
     }

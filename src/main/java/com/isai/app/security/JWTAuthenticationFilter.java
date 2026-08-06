@@ -41,6 +41,7 @@ public class JWTAuthenticationFilter
                     .setAuthentication(authenticationToken);
 
         }
+        filterChain.doFilter(request, response);
     }
 
     private String getJWTFromRequest(@NonNull HttpServletRequest request) {
