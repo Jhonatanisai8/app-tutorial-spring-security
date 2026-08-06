@@ -5,6 +5,7 @@ import com.isai.app.dto.req.UsuarioLoginRequestDTO;
 import com.isai.app.dto.req.UsuarioRegistroRequestDTO;
 import com.isai.app.dto.res.JWTResponseDTO;
 import com.isai.app.exceptions.personalization.ConflicException;
+import com.isai.app.exceptions.personalization.JWTAuthenticationException;
 import com.isai.app.exceptions.personalization.NotFoundException;
 import com.isai.app.model.Rol;
 import com.isai.app.model.UsuarioEntidad;
@@ -14,6 +15,11 @@ import com.isai.app.service.RolService;
 import com.isai.app.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -74,6 +80,21 @@ public class UsuarioServiceImpl
 
     @Override
     public JWTResponseDTO login(UsuarioLoginRequestDTO loginRequestDTO) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequestDTO.getEmail(),
+                            loginRequestDTO.getPassword()
+                    )
+            );
 
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String token = jwtGenerator.generarToken(authentication);
+            return JWTResponseDTO.builder()
+                    .accesToken(token)
+                    .build();
+        } catch (AuthenticationException e) {
+            throw new JWTAuthenticationException("Credenciales Invalidas");
+        }
     }
 }
