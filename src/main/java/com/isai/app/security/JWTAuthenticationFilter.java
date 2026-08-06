@@ -40,8 +40,6 @@ public class JWTAuthenticationFilter
             SecurityContextHolder.getContext()
                     .setAuthentication(authenticationToken);
 
-        } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "No autorizado");
         }
     }
 
